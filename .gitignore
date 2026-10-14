@@ -1,0 +1,7 @@
+# videos are >100MB (GitHub limit): shared separately
+assets/video/*.mp4
+assets/video/*.mov
+export/
+__pycache__/
+*.pyc
+.DS_Store

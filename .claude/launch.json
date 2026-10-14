@@ -1,0 +1,1 @@
+{"version":"0.0.1","configurations":[{"name":"tambour-site","runtimeExecutable":"python3","runtimeArgs":["-m","http.server","3700"],"port":3700}]}

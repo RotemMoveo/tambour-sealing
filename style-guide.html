@@ -1,0 +1,782 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Tambour Style Guide</title>
+<style>
+@font-face{font-family:"Simpler";src:url("assets/fonts/Simpler-Light.otf") format("opentype");font-weight:300;font-display:swap}
+@font-face{font-family:"Simpler";src:url("assets/fonts/Simpler-Regular.otf") format("opentype");font-weight:400;font-display:swap}
+@font-face{font-family:"Simpler";src:url("assets/fonts/Simpler-Bold.otf") format("opentype");font-weight:700;font-display:swap}
+@font-face{font-family:"Simpler";src:url("assets/fonts/Simpler-Black.otf") format("opentype");font-weight:900;font-display:swap}
+:root{
+  --red:#db0032;--red-dark:#c2002c;--red-press:#a80027;--red-30:#f4b2c1;--red-20:#f8ccd6;--red-10:#fbe5ea;
+  --black:#333032;--ink:#1f2227;--black-hover:#1f1e1f;--green:#1a3b3a;--bg:#edeeef;--line:#d9d9d9;--grey:#898f98;--grey-60:#666;--grey-40:#999;
+  --font:"Simpler","Heebo","Assistant",Arial,sans-serif;--mono:ui-monospace,Menlo,monospace;
+  --latin:"Nexa","Montserrat","Arial Black",Arial,sans-serif;
+  --canvas:#e5e6ea;--doc:#fff;--doc-line:#e4e5e9;--muted:#8a8d96;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--canvas);color:var(--ink);font:400 15px/1.45 var(--font);-webkit-font-smoothing:antialiased}
+:focus-visible{outline:3px solid var(--red);outline-offset:3px;border-radius:2px}
+.page{max-width:1320px;margin:0 auto;padding:0 clamp(16px,4vw,48px) 96px}
+.mono{font-family:var(--mono);direction:ltr;unicode-bidi:plaintext}
+svg.i{fill:none;stroke:currentColor;stroke-width:1.35;stroke-linecap:square;stroke-linejoin:miter;overflow:visible}
+svg.i.bold{stroke-width:2}
+.logo{display:block;height:auto;fill:currentColor}
+
+/* page head + chip nav */
+header.top{padding:48px 0 8px;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap}
+header.top .logo{width:170px;color:var(--red)}
+header.top h1{margin:0;font-weight:900;font-size:clamp(28px,4vw,44px);line-height:1}
+header.top p{margin:6px 0 0;color:var(--grey-60)}
+nav.chips{position:sticky;top:0;z-index:10;background:var(--canvas);padding:14px 0 16px;display:flex;gap:10px;flex-wrap:wrap;border-bottom:2px solid var(--ink)}
+nav.chips a{background:var(--red-20);color:var(--ink);font-weight:700;border-radius:999px;padding:6px 22px;transition:background .15s,color .15s;text-decoration:none}
+nav.chips a:hover{background:var(--red);color:#fff}
+
+/* section = black label block + doc pages */
+.sec{scroll-margin-top:64px;display:grid;grid-template-columns:240px 1fr;gap:28px;padding:48px 0;border-bottom:1px solid var(--ink);align-items:start}
+.sec>.label{background:#000;color:#fff;font-weight:900;font-size:28px;line-height:1.1;padding:40px 24px;position:sticky;top:76px}
+.pages{display:flex;gap:24px;align-items:flex-start;flex-wrap:wrap;min-width:0}
+.doc{background:var(--doc);padding:40px 44px 28px;min-width:0;flex:1 1 560px;max-width:100%}
+.doc.wide{flex-basis:100%}
+.doc>h2{margin:0 0 8px;font-size:30px;font-weight:900;line-height:1.1}
+.doc>.desc{margin:0;color:var(--ink);font-size:14px;max-width:80ch}
+.doc>.doclink{display:block;margin-top:8px;color:#4a55e6;font-size:13px;text-decoration:none}
+.doc>hr{border:0;border-top:1px solid var(--doc-line);margin:22px 0 8px}
+.doc h3{margin:34px 0 4px;font-size:17px;font-weight:900}
+.doc .note{color:var(--muted);font-size:13px;margin:4px 0 0}
+.docfoot{margin-top:36px;background:#f5f6fa;border-radius:12px;padding:12px;text-align:center;font-size:11.5px;color:var(--muted)}
+.docfoot b{color:var(--red)}
+.rules{margin:14px 0 0;padding:0;list-style:none;display:grid;gap:10px;font-size:14px}
+.rules li{display:flex;gap:12px;align-items:baseline}
+.rules li::before{content:"";flex:none;width:8px;height:8px;background:var(--red);transform:translateY(-1px)}
+.rules li.no::before{background:var(--ink)}
+
+/* tables */
+.tw{overflow-x:auto}
+.tbl{width:100%;border-collapse:collapse;font-size:14px}
+.tbl th{font-weight:400;color:var(--muted);text-align:start;padding:10px 12px 10px 0;border-bottom:1px solid var(--doc-line);white-space:nowrap;font-size:12.5px}
+.tbl td{padding:14px 12px 14px 0;border-bottom:1px solid var(--doc-line);vertical-align:middle}
+.tbl td.v{white-space:nowrap}
+.tbl td.v small{color:var(--muted);margin-inline-start:8px}
+.chip{display:inline-block;background:#f1f2f4;border-radius:4px;padding:3px 10px;font-family:var(--mono);font-size:12px;direction:ltr;white-space:nowrap}
+.chip.t{background:#e3e8fb;color:#2a3a8f}
+.dot{display:inline-block;width:28px;height:28px;border-radius:4px;vertical-align:middle;margin-inline-end:10px;border:1px solid #0000001a}
+
+/* palette rows */
+.pal{display:grid;grid-template-columns:minmax(150px,1fr) 2.4fr;gap:24px;padding:22px 0;align-items:start}
+.pal>div:first-child b{display:block;font-size:13px;margin-bottom:4px}
+.pal>div:first-child span{font-size:12.5px;line-height:1.5;display:block;max-width:30ch}
+.sws{display:flex;flex-wrap:wrap;gap:10px}
+.sw{width:72px;border:0;background:none;padding:0;font:inherit;text-align:start;cursor:pointer}
+.sw i{display:block;height:48px;border-radius:5px;border:1px solid #0000000f;margin-bottom:6px}
+.sw b{display:block;font-size:12px;font-weight:700}
+.sw code{font-family:var(--mono);font-size:11px;color:var(--muted);direction:ltr;unicode-bidi:plaintext;display:block}
+.sw:hover b{color:var(--red)}
+.sw.alpha i{background-image:linear-gradient(45deg,#999 25%,transparent 25%,transparent 75%,#999 75%),linear-gradient(45deg,#999 25%,#fff 25%,#fff 75%,#999 75%);background-size:12px 12px;background-position:0 0,6px 6px;position:relative}
+.sw.alpha i::after{content:"";position:absolute;inset:0;background:var(--c);border-radius:5px}
+.tbd{width:100%;height:92px;background:#d9d9d9;display:grid;place-items:center;color:#6b6b6b;font-size:13px}
+/* brand color blocks */
+.bcols{display:grid;grid-template-columns:1.1fr 1fr .8fr;min-height:420px;margin-top:18px}
+.bcol{display:flex;flex-direction:column;justify-content:space-between;padding:26px 22px;color:#fff}
+.bcol .nm{writing-mode:vertical-rl;transform:rotate(180deg);align-self:flex-start;font:900 28px/1.05 var(--latin);letter-spacing:.04em;text-transform:uppercase}
+.bcol .logo{width:130px}
+.bcol dl{margin:14px 0 0;font:700 10.5px/1.7 var(--latin);letter-spacing:.04em;direction:ltr;text-align:left}
+.bcol dt{display:inline}.bcol dd{display:inline;margin:0;font-weight:400}.bcol dd::after{content:"";display:block}
+
+/* icons */
+.icons{display:grid;grid-template-columns:repeat(auto-fill,minmax(112px,1fr));gap:10px;margin-top:12px}
+.ic{background:#f5f6fa;border-radius:6px;padding:18px 6px 12px;text-align:center;font-size:11.5px;color:var(--grey-60);font-family:var(--mono);direction:ltr}
+.ic svg{width:32px;height:32px;color:var(--black);display:block;margin:0 auto 6px}
+.bar{display:flex;align-items:center;gap:28px;background:var(--black);color:#fff;height:56px;padding:0 24px;margin-top:14px;overflow-x:auto;white-space:nowrap}
+.bar .grp{display:flex;align-items:center;gap:6px}
+.bar .grp svg{width:32px;height:32px}
+.bar .mid{flex:1;display:flex;justify-content:center;align-items:center;gap:6px;font-size:13px;opacity:.9}
+.bar .mid svg{width:28px;height:28px}
+.bar span.t{font-weight:700;font-size:13px;margin-inline-start:6px}
+.bar .tel{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:700}
+.anat{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}
+.anat>div{background:#f5f6fa;border-radius:6px;padding:26px;display:flex;align-items:center;gap:18px;font-size:13px;min-height:130px}
+.box32{width:32px;height:32px;border:1px dashed #8b6cf0;display:grid;place-items:center;background:#fff;flex:none}
+.box32 svg{width:24px;height:24px;color:var(--red)}
+.box64{width:96px;height:96px;background:#fff;border:1px dashed #8b6cf0;position:relative;flex:none}
+.box64::before{content:"";position:absolute;inset:16px;border:1px solid var(--red-30)}
+.box64 svg{position:absolute;inset:0;width:96px;height:96px;color:var(--black)}
+
+/* demo shapes */
+.sq{display:inline-block;width:40px;height:40px;border:2px solid var(--ink);background:#fff;vertical-align:middle}
+.ln{display:inline-block;width:64px;vertical-align:middle;background:var(--ink)}
+.shd{display:inline-block;width:56px;height:40px;background:#fff;vertical-align:middle}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;gap:8px;height:52px;padding:0 20px 0 12px;background:var(--red);color:#fff;border:0;border-radius:4px;font:700 16px/1.2 var(--font);white-space:nowrap}
+.btn svg{width:32px;height:32px;flex:none;padding:4px}
+.btn.primary.hover{background:var(--red-dark)}
+.btn.primary.active{background:var(--red-press)}
+.btn.primary.dis{background:var(--grey-40)}
+.btn.sec{background:var(--black)}
+.btn.sec.hover{background:var(--black-hover)}
+.btn.sec.active{background:#000}
+.btn.sec.dis{background:var(--line);color:var(--grey-40)}
+.btn.focus{outline:3px solid var(--red);outline-offset:3px}
+.link{display:inline-flex;align-items:center;gap:10px;color:var(--red);font-weight:700;font-size:16px;padding-block:6px;white-space:nowrap}
+.link svg{width:24px;height:24px}
+.link.hover{color:var(--red-dark)}
+.link.hover svg{transform:translate(-3px,3px)}
+.link.active{color:var(--red-press)}
+.link.focus{outline:3px solid var(--red);outline-offset:3px;border-radius:2px}
+.link.dis{color:var(--grey-40)}
+.vgrid{display:grid;grid-template-columns:90px repeat(3,auto);gap:18px 28px;align-items:center;margin-top:18px;border:1px dashed #b9a4f5;padding:22px;overflow-x:auto}
+.vgrid .h{font-size:12.5px;color:var(--muted)}
+.ibtn{width:32px;height:32px;border-radius:4px;background:var(--black);color:#fff;display:inline-grid;place-items:center}
+.ibtn svg{width:32px;height:32px}
+.ibtn.light{background:transparent;color:var(--ink)}
+.ibtn.hover{background:var(--red);color:#fff}
+.ibtn.focus{outline:3px solid var(--red);outline-offset:2px}
+.ibtn.dis{background:var(--line);color:var(--grey-40)}
+.tabs{display:flex;gap:32px;border-bottom:1px solid var(--line);font-weight:700;margin-top:12px}
+.tabs span{padding:14px 0;border-bottom:3px solid transparent;margin-bottom:-1px}
+.tabs .on{color:var(--red);border-color:var(--red)}
+.tag{display:inline-block;background:var(--green);color:#fff;font-size:12px;font-weight:700;border-radius:4px;padding:4px 10px}
+.sp i{display:block;height:18px;background:var(--red-30);border-inline-start:2px solid var(--red)}
+
+/* ---------- LOGO ---------- */
+.lg{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin-top:18px}
+.lg>div{height:130px;display:grid;place-items:center;border:1px solid var(--line)}
+.lg .logo{width:170px}
+.lg small{display:block;font-size:11.5px;margin-top:8px;opacity:.75;text-align:center;font-family:var(--mono);direction:ltr}
+.lg>div>div{display:flex;flex-direction:column;align-items:center}
+.cs{--w:320px;--m:calc(var(--w)*120/627);display:inline-block;position:relative;padding:var(--m);border:1px solid var(--red);margin-top:18px}
+.cs .logo{width:var(--w);color:var(--red)}
+.cs .gh{position:absolute;width:var(--m);height:var(--m);color:#e4e4e4;fill:currentColor}
+.cs .gh.t{top:0;left:var(--m)}.cs .gh.b{bottom:0;left:var(--m)}.cs .gh.l{left:0;top:var(--m)}.cs .gh.r{right:0;top:var(--m)}
+.csrow{display:flex;gap:40px;flex-wrap:wrap;align-items:flex-end}
+.minsz{display:flex;flex-direction:column;gap:10px;align-items:flex-start;font-size:13px}
+.minsz .logo{width:76px;color:var(--red)}
+.minsz hr{width:76px;border:0;border-top:1px solid var(--red);margin:0}
+.lock{display:flex;gap:28px;flex-wrap:wrap;margin-top:18px}
+.lock>div{flex:1 1 280px;border:1px solid var(--line);padding:36px;display:flex;justify-content:center}
+.lock .v{display:flex;flex-direction:column;align-items:stretch;width:260px;gap:6px}
+.lock .v .logo{color:var(--red);width:100%}
+.lock .h{display:flex;align-items:center;gap:20px}
+.lock .h .logo{color:var(--red);width:170px;flex:none}
+.tagline{font-weight:400;white-space:nowrap;line-height:1.1;color:var(--ink);display:block}
+.cl{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:18px}
+.cl .ph{aspect-ratio:4/3;background-size:cover;background-position:center;position:relative;display:flex;align-items:flex-end;justify-content:center;padding:18px}
+.cl .ph .logo{width:130px;color:#fff}
+.greys{display:flex;gap:0;margin-top:14px}
+.greys div{flex:1;height:56px;display:grid;place-items:center}
+.greys .logo{width:84px}
+.stamps{display:flex;gap:28px;flex-wrap:wrap;margin-top:18px}
+.stamps>div{flex:1 1 220px;border:1px solid var(--line);display:grid;place-items:center;padding:22px}
+.stamps svg{width:200px;height:200px}
+
+/* ---------- IMAGERY / GRAPHICS ---------- */
+:root{--m:96px;--grid:#f4b2c1}
+.gal{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-top:16px}
+.gal figure{margin:0}
+.gal .ph{aspect-ratio:4/3;background-size:cover;background-position:center}
+.gal figcaption{font-size:12.5px;color:var(--grey-60);margin-top:8px}
+.tr{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:22px;margin-top:18px}
+.tr figcaption{font-size:12.5px;margin-top:10px}
+.tr figcaption b{display:block;font-size:13.5px}
+.tr figure{margin:0}
+.ph1{aspect-ratio:1/1;width:var(--m);background-size:cover;background-position:center;position:relative}
+.stage{background:#f5f6fa;padding:24px;display:flex;align-items:center;justify-content:center;min-height:260px;position:relative}
+.ph-round{width:260px;aspect-ratio:4/3;background-size:cover;background-position:center;border-bottom-right-radius:110px}
+.ph-grid{width:260px;aspect-ratio:4/3;background-size:cover;background-position:center;position:relative}
+.ph-grid::after{content:"";position:absolute;inset:0;background-image:linear-gradient(#ffffff99 1px,transparent 1px),linear-gradient(90deg,#ffffff99 1px,transparent 1px);background-size:65px 65px;background-position:0 0}
+.mk{position:absolute;color:#fff;width:22px;height:22px;fill:currentColor}
+/* color swatch tile (color fan) */
+.fan{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:#fff;width:100%;max-width:420px;direction:ltr}
+.fan .t{aspect-ratio:1/1;position:relative;padding:14px;display:flex;flex-direction:column;justify-content:flex-end;color:var(--black)}
+.fan .t b{font:900 15px/1.2 var(--latin);letter-spacing:.02em;text-transform:uppercase;display:block}
+.fan .t span{font:800 14px/1.4 var(--latin);letter-spacing:.06em;text-transform:uppercase;display:block;margin-top:4px}
+.fan .t .ac{position:absolute;top:10px;right:10px;display:flex;flex-direction:column;gap:4px}
+.fan .t .ac svg{width:28px;height:28px}
+/* cube compositions */
+.cube{position:relative;flex:none}
+.cube>*{position:absolute;width:var(--m);color:#fff;display:flex;flex-direction:column;justify-content:flex-end;padding:10px;background-size:cover;background-position:center}
+.cube .tl,.poster .c{direction:ltr;text-align:left}
+.cube .tl b{font:900 12px/1.15 var(--latin);letter-spacing:.02em;text-transform:uppercase;display:block}
+.cube .tl span{font:800 9.5px/1.4 var(--latin);letter-spacing:.06em;display:block;margin-top:4px}
+.cube .mkw{position:absolute;width:22px;height:22px;fill:currentColor;color:#fff}
+.cube .up{left:var(--m);top:0;height:var(--m)}
+.cube .lo{left:0;top:var(--m);height:var(--m)}
+.cube .tall{height:calc(var(--m)*2)}
+.cube .out{background:#fff;border:1px solid var(--ink)}
+.cubes{display:flex;gap:56px;flex-wrap:wrap;margin-top:22px;align-items:flex-start}
+.cubes figure{margin:0;display:flex;flex-direction:column;gap:12px}
+.cubes figcaption{font-size:12.5px;color:var(--grey-60);max-width:200px}
+/* modular grid */
+.gridbox{position:relative;width:calc(var(--m)*6);max-width:100%;height:calc(var(--m)*3);background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:var(--m) var(--m);margin:18px 0 0;border-top:1px solid var(--grid);border-left:1px solid var(--grid)}
+.gridbox .big{position:absolute;right:0;top:0;width:calc(var(--m)*3);height:calc(var(--m)*3);color:var(--red)}
+.gridbox .big svg{width:100%;height:100%;fill:currentColor}
+.gridbox .c{position:absolute;background:var(--red)}
+/* posters */
+.posters{display:flex;gap:20px;flex-wrap:wrap;margin-top:22px}
+.poster{--m:56px;position:relative;width:calc(var(--m)*4);height:calc(var(--m)*5);background-size:cover;background-position:center;box-shadow:0 4px 12px #0000001a;overflow:hidden;color:#fff}
+.poster .c{position:absolute;display:flex;flex-direction:column;justify-content:flex-end;padding:8px;width:var(--m)}
+.poster .c b{font:900 10px/1.15 var(--latin);letter-spacing:.02em;text-transform:uppercase}
+.poster .c span{font:800 8px/1.5 var(--latin);letter-spacing:.06em}
+.poster .logo{position:absolute;bottom:16px;right:16px;width:86px;color:#fff}
+.poster .c svg{position:absolute;top:8px;left:8px;width:16px;height:16px;fill:#fff}
+.hero{position:relative;overflow:hidden;background:#fff;height:300px;margin-top:22px;border:1px solid var(--grid)}
+.hero .img{position:absolute;inset:0 auto 0 0;width:calc(58% - 90px);background-size:cover;background-position:center;border-bottom-right-radius:140px}
+.hero .c1{position:absolute;left:calc(58% - 90px);top:0;width:90px;height:90px;background:var(--red)}
+.hero .c2{position:absolute;left:calc(58% - 90px);top:90px;width:90px;height:90px;background:var(--red-10)}
+.hero .g{position:absolute;inset:0;background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:90px 90px;mix-blend-mode:multiply;opacity:.7;pointer-events:none}
+.hero .txt{position:absolute;right:48px;top:50%;transform:translateY(-50%);width:34%;display:flex;flex-direction:column;gap:14px;align-items:flex-start}
+.hero .txt h4{margin:0;font:900 clamp(26px,3vw,40px)/.96 var(--font)}
+.hero .txt h4 em{font-style:normal;color:var(--red)}
+.hero .txt .btn{height:44px;font-size:14px}
+
+.toast{position:fixed;inset-inline:0;bottom:24px;margin:auto;width:max-content;background:var(--ink);color:#fff;padding:10px 18px;border-radius:4px;opacity:0;pointer-events:none;transition:opacity .2s;direction:ltr}
+.toast.on{opacity:1}
+@media (max-width:900px){
+  .sec{grid-template-columns:1fr}
+  .sec>.label{position:static;padding:24px}
+  .doc{padding:28px 18px 22px;flex-basis:100%}
+  .pal{grid-template-columns:1fr;gap:12px}
+  .anat,.cl,.bcols{grid-template-columns:1fr}
+  .hero .txt{width:44%;right:16px}.hero .img{width:calc(52% - 60px)}.hero .c1,.hero .c2{left:calc(52% - 60px);width:60px;height:60px}.hero .c2{top:60px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<!-- shared vector assets: logo + mark from the live site header -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="logo" viewBox="0 0 627 120">
+      <path d="M0 119.791H69.8225C97.2878 119.791 119.625 97.2884 119.625 69.6578V0.000652889H40.5372V39.5446H80.4118V80.2471H39.7092V40.7032H0V119.791Z"/>
+      <path d="M462.063 108.368C494.823 108.864 510.211 92.1536 510.211 57.9043C510.211 26.4671 495.981 11.4111 465.868 11.4111H406.47V108.203H439.892V41.5244H476.458V78.0896H451.804V108.203L462.063 108.368ZM211.066 108.203H244.489V47.9763C244.489 25.3097 229.929 11.4111 208.089 11.4111H157.625V41.5244H211.066V108.203ZM258.057 108.203H291.81V11.4111H258.057V108.203ZM305.046 108.203H394.556V78.0896H381.816V47.811C381.816 25.3097 367.422 11.4111 345.582 11.4111H305.046V41.5244H348.395V78.0896H305.046V108.203ZM522.785 108.368H585.824C607.995 108.368 626.194 90.1682 626.194 67.831V11.4111H568.12V41.5244H592.773V78.0896H556.207V11.4111H522.785V108.368Z"/>
+    </symbol>
+    <symbol id="mark" viewBox="0 0 120 120">
+      <path d="M0 119.791H69.8225C97.2878 119.791 119.625 97.2884 119.625 69.6578V0.000652889H40.5372V39.5446H80.4118V80.2471H39.7092V40.7032H0V119.791Z"/>
+    </symbol>
+  </defs>
+</svg>
+
+<div class="page">
+  <header class="top">
+    <div>
+      <h1>Tambour Style Guide</h1>
+      <p>Tambour Website 2025 · טוקנים, לוגו, טיפוגרפיה, רכיבים, תמונות ואלמנטים גרפיים</p>
+    </div>
+    <svg class="logo" viewBox="0 0 627 120" role="img" aria-label="תמבור"><use href="#logo"/></svg>
+  </header>
+
+  <nav class="chips" aria-label="פרקים">
+    <a href="#colors">Colors</a><a href="#logo-guide">Logo</a><a href="#icons">Icons</a><a href="#typography">Typography</a>
+    <a href="#borders">Borders</a><a href="#buttons">Buttons</a><a href="#spaces">Spaces</a>
+    <a href="#imagery">Imagery</a><a href="#graphics">Graphics</a>
+  </nav>
+
+  <!-- COLORS -->
+  <section class="sec" id="colors">
+    <div class="label">Colors Guide 👈</div>
+    <div class="pages">
+      <article class="doc">
+        <h2>Brand colors</h2>
+        <p class="desc">שלושת צבעי המותג כפי שהם מוגדרים בספר המותג. הלוגו מופיע בכל אחד מהם בצבע ההפוך.</p>
+        <hr>
+        <div class="bcols">
+          <div class="bcol" style="background:#db0032"><div class="nm">Tambour<br>Red</div><div><svg class="logo" viewBox="0 0 627 120"><use href="#logo"/></svg><dl><dt>PANTONE </dt><dd>199C . 199U</dd><dt>CMYK </dt><dd>C.2 M.100 Y.80 K.0</dd><dt>RGB </dt><dd>R.219 G.0 B.50</dd><dt>HEX </dt><dd>#DB0032</dd></dl></div></div>
+          <div class="bcol" style="background:#000"><div class="nm">Tambour<br>White</div><div><svg class="logo" viewBox="0 0 627 120"><use href="#logo"/></svg><dl><dt>PANTONE </dt><dd>BLACK C . BLACK U</dd><dt>CMYK </dt><dd>C.0 M.0 Y.0 K.100</dd><dt>RGB </dt><dd>R.0 G.0 B.0</dd><dt>HEX </dt><dd>#000000</dd></dl></div></div>
+          <div class="bcol" style="background:#1a3b3a"><div class="nm" style="color:#db0032">Tambour<br>Green</div><div><svg class="logo" viewBox="0 0 627 120" style="color:#db0032"><use href="#logo"/></svg><dl><dt>PANTONE </dt><dd>—</dd><dt>CMYK </dt><dd>C.98 M.78 Y.80 K.30</dd><dt>RGB </dt><dd>R.26 G.59 B.58</dd><dt>HEX </dt><dd>#1A3B3A</dd></dl></div></div>
+        </div>
+        <div class="docfoot">Made with <b>♥</b> for Tambour</div>
+      </article>
+      <article class="doc">
+        <h2>Colors – Global</h2>
+        <p class="desc">הפלטות הן הבסיס לטוקנים של המערכת. אין להשתמש בהן ישירות ברכיבים, אלא דרך טוקני ה-Alias. לחיצה על גוון מעתיקה את ה-HEX.</p>
+        <hr>
+        <div class="pal"><div><b>Brand Primary</b><span>צבע המותג הראשי: אדום תמבור וגווניו.</span></div><div class="sws" data-g="red"></div></div>
+        <div class="pal"><div><b>Brand Secondary</b><span>שחורים לטקסט, לפס העליון ולפוטר.</span></div><div class="sws" data-g="black"></div></div>
+        <div class="pal"><div><b>Brand Accent</b><span>ירוק בנייה ירוקה, לתגיות ולתוכן סביבתי.</span></div><div class="sws" data-g="green"></div></div>
+        <div class="pal"><div><b>Imagery palette</b><span>גווני משנה לקוביות צבע על תמונות. הערכים נדגמו מתמונות ספר המותג, ולא נקבעו רשמית.</span></div><div class="sws" data-g="imagery"></div></div>
+        <div class="pal"><div><b>Neutral</b><span>הפלטה הבסיסית לטקסט, קווים ורקעים.</span></div><div class="sws" data-g="neutral"></div></div>
+        <div class="pal"><div><b>Positive</b><span>הצלחה ומשוב חיובי.</span></div><div><div class="tbd">טרם הוגדר במדריך המותג</div></div></div>
+        <div class="pal"><div><b>Negative</b><span>שגיאות ופעולות הרסניות. האדום של המותג לא מתאים כאן, כי הוא צבע ה-CTA.</span></div><div><div class="tbd">טרם הוגדר במדריך המותג</div></div></div>
+        <div class="pal"><div><b>Warning</b><span>אזהרות ומידע שדורש תשומת לב.</span></div><div><div class="tbd">טרם הוגדר במדריך המותג</div></div></div>
+        <div class="pal"><div><b>Neutral Alpha</b><span>רמות שקיפות לרקעים וצללים.</span></div><div class="sws" data-g="alpha"></div></div>
+        <div class="pal"><div><b>White</b></div><div class="sws" data-g="white"></div></div>
+        <div class="docfoot">Made with <b>♥</b> for Tambour</div>
+      </article>
+      <article class="doc">
+        <h2>Colors – Alias</h2>
+        <p class="desc">טוקני צבע לפי שימוש. אלה השמות שמופיעים ב-CSS.</p>
+        <a class="doclink" href="css/styles.css">Link to documentation</a>
+        <hr>
+        <div id="alias"></div>
+        <div class="docfoot">Made with <b>♥</b> for Tambour</div>
+      </article>
+    </div>
+  </section>
+
+  <!-- LOGO -->
+  <section class="sec" id="logo-guide">
+    <div class="label">Logo Guide 👈</div>
+    <div class="pages">
+      <article class="doc wide">
+        <h2>Logo</h2>
+        <p class="desc">הלוגו הוא מילה עברית ולכן נקרא מימין לשמאל: המילה "טמבור" מימין, וסימן ה"ת" (הסמליל) בסוף הקריאה, בצד שמאל. הלוגו הווקטורי נלקח מהאתר החי. אין לצייר אותו מחדש, לעוות או לבנות אותו מפונט.</p>
+        <hr>
+        <h3>Color versions</h3>
+        <div class="lg">
+          <div style="background:#fff;color:#db0032"><div><svg class="logo" viewBox="0 0 627 120"><use href="#logo"/></svg><small>red on white · ראשי</small></div></div>
+          <div style="background:#db0032;color:#fff"><div><svg class="logo" viewBox="0 0 627 120"><use href="#logo"/></svg><small>white on red</small></div></div>
+          <div style="background:#000;color:#fff"><div><svg class="logo" viewBox="0 0 627 120"><use href="#logo"/></svg><small>white on black</small></div></div>
+          <div style="background:#1a3b3a;color:#db0032"><div><svg class="logo" viewBox="0 0 627 120"><use href="#logo"/></svg><small>red on green</small></div></div>
+          <div style="background:#fff;color:#000"><div><svg class="logo" viewBox="0 0 627 120"><use href="#logo"/></svg><small>black on white</small></div></div>
+        </div>
+
+        <h3>Clear space & minimum size</h3>
+        <p class="note">שטח סטרילי: לשמור סביב הלוגו מרחק של לפחות גובה הסמליל (X) מכל צד. גודל מינימום: רוחב 20 מ"מ בדפוס.</p>
+        <div class="csrow">
+          <div class="cs">
+            <svg class="gh t" viewBox="0 0 120 120"><use href="#mark"/></svg><svg class="gh b" viewBox="0 0 120 120"><use href="#mark"/></svg>
+            <svg class="gh l" viewBox="0 0 120 120"><use href="#mark"/></svg><svg class="gh r" viewBox="0 0 120 120"><use href="#mark"/></svg>
+            <svg class="logo" viewBox="0 0 627 120"><use href="#logo"/></svg>
+          </div>
+          <div class="minsz"><svg class="logo" viewBox="0 0 627 120"><use href="#logo"/></svg><hr><span>20 מ"מ · גודל מינימום</span></div>
+        </div>
+
+        <h3>Logo & tagline</h3>
+        <p class="note">תג הלוין "הצבע של ישראל" מיושר לימין, ברוחב הלוגו. בגרסה האופקית התג נקרא אחרי הלוגו, משמאלו.</p>
+        <div class="lock">
+          <div><div class="v"><svg class="logo" viewBox="0 0 627 120"><use href="#logo"/></svg><span class="tagline" data-fit="260">הצבע של ישראל</span></div></div>
+          <div><div class="h"><svg class="logo" viewBox="0 0 627 120"><use href="#logo"/></svg><span class="tagline" style="font-size:34px">הצבע של ישראל</span></div></div>
+        </div>
+
+        <h3>Colorless (חסר צבע)</h3>
+        <p class="note">הלוגו הוא חסר צבע: על תמונה ועל צבעי משנה הוא מופיע בלבן או בשחור לפי הניגודיות.</p>
+        <div class="greys">
+          <div style="background:#eee;color:#000"><svg class="logo" viewBox="0 0 627 120"><use href="#logo"/></svg></div>
+          <div style="background:#bbb;color:#fff"><svg class="logo" viewBox="0 0 627 120"><use href="#logo"/></svg></div>
+          <div style="background:#888;color:#fff"><svg class="logo" viewBox="0 0 627 120"><use href="#logo"/></svg></div>
+          <div style="background:#2a2a2a;color:#fff"><svg class="logo" viewBox="0 0 627 120"><use href="#logo"/></svg></div>
+        </div>
+        <div class="cl">
+          <div class="ph" style="background-image:linear-gradient(#0000 40%,#0006),url(assets/img/cat-surfaces.jpg)"><svg class="logo" viewBox="0 0 627 120"><use href="#logo"/></svg></div>
+          <div class="ph" style="background-image:linear-gradient(#0000 40%,#0007),url(assets/img/article-sealing.jpg)"><svg class="logo" viewBox="0 0 627 120"><use href="#logo"/></svg></div>
+        </div>
+
+        <h3>Stamp (חותמת)</h3>
+        <p class="note">חותמת עגולה עם הסמליל במרכז ותג הלוין סביבו. בשימוש בחותמות, מדבקות וסיום חומרים מודפסים.</p>
+        <div class="stamps">
+          <div><svg id="stampFull" viewBox="0 0 240 240" style="color:#db0032"></svg></div>
+          <div><svg id="stampArc" viewBox="0 0 240 240" style="color:#db0032"></svg></div>
+        </div>
+        <div class="docfoot">Made with <b>♥</b> for Tambour</div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ICONS -->
+  <section class="sec" id="icons">
+    <div class="label">Icons Guide 👈</div>
+    <div class="pages">
+      <article class="doc">
+        <h2>Icons</h2>
+        <p class="desc">אייקוני ממשק בקו דק: קנבס 32px, stroke 1.35px, קצוות ישרים (square) ופינות חדות, ללא מילוי. הצבע הוא currentColor: לבן על הפס הכהה, שחור (#333032) על לבן.</p>
+        <hr>
+        <h3>Size 32</h3>
+        <p class="note">הציורים הם מתוך האתר החי. החץ והמשכו (Arrow) עבים יותר: stroke 2px.</p>
+        <div class="icons" id="iconGrid"></div>
+        <h3>In context: top bar</h3>
+        <p class="note">הפס העליון של האתר: האייקונים מימין לשמאל לפי סדר הקריאה: עגלה, מועדפים, התחברות, תעשייה. חיפוש במרכז, צור קשר בקצה השמאלי.</p>
+        <div class="bar" id="topbar"></div>
+        <h3>Anatomy</h3>
+        <div class="anat">
+          <div><span class="box64" id="anatIcon"></span><span>אייקון בקנבס 32, מיושר למרכז, בלי מסגרת. שטח מוגן של 8px מכל צד.</span></div>
+          <div><span class="box32"><svg class="i bold" viewBox="0 0 24 24"><path d="M17 7 7 17M7 8v9h9"/></svg></span><span>חץ ↙ בכפתורים וקישורים: בתוך קופסה 32, מצביע לכיוון הקריאה (למטה-שמאלה)</span></div>
+        </div>
+        <div class="docfoot">Made with <b>♥</b> for Tambour</div>
+      </article>
+    </div>
+  </section>
+
+  <!-- TYPOGRAPHY -->
+  <section class="sec" id="typography">
+    <div class="label">Typography Guide 👈</div>
+    <div class="pages">
+      <article class="doc">
+        <h2>Font</h2>
+        <hr>
+        <h3>Font Family</h3>
+        <div class="tw"><table class="tbl" id="tFam"></table></div>
+        <h3>Font Size</h3>
+        <div class="tw"><table class="tbl" id="tSize"></table></div>
+        <h3>Font Weight</h3>
+        <div class="tw"><table class="tbl" id="tWeight"></table></div>
+        <h3>Line height</h3>
+        <div class="tw"><table class="tbl" id="tLh"></table></div>
+        <h3>Letter spacing</h3>
+        <div class="tw"><table class="tbl" id="tLs"></table></div>
+        <h3>Decoration</h3>
+        <div class="tw"><table class="tbl" id="tDeco"></table></div>
+        <div class="docfoot">Made with <b>♥</b> for Tambour</div>
+      </article>
+      <article class="doc" style="flex-basis:640px">
+        <h2>Typography</h2>
+        <a class="doclink" href="assets/fonts/">link to font family</a>
+        <hr>
+        <h3>Desktop</h3>
+        <div class="tw"><table class="tbl" id="tTypeD"></table></div>
+        <h3>Mobile (עד 640px)</h3>
+        <div class="tw"><table class="tbl" id="tTypeM"></table></div>
+        <div class="docfoot">Made with <b>♥</b> for Tambour</div>
+      </article>
+    </div>
+  </section>
+
+  <!-- BORDERS -->
+  <section class="sec" id="borders">
+    <div class="label">Borders Guide 👈</div>
+    <div class="pages">
+      <article class="doc">
+        <h2>Border Radius</h2>
+        <p class="desc">מגדיר את רדיוס הפינות. שפה חדה: רוב הרכיבים 0 או 4px. פינה גדולה אחת, בסגנון הסמליל, שמורה לתמונות Hero.</p>
+        <hr>
+        <div class="tw"><table class="tbl" id="tRad"></table></div>
+        <div class="docfoot">Made with <b>♥</b> for Tambour</div>
+      </article>
+      <article class="doc">
+        <h2>Border Width</h2>
+        <p class="desc">הרשת של האתר בנויה מקווי שיער ורודים דקים.</p>
+        <hr>
+        <div class="tw"><table class="tbl" id="tWid"></table></div>
+        <div class="docfoot">Made with <b>♥</b> for Tambour</div>
+      </article>
+      <article class="doc">
+        <h2>Shadows</h2>
+        <p class="desc">שימוש מינימלי: רק להצפה (hover של כרטיס, תפריטים).</p>
+        <hr>
+        <div class="tw"><table class="tbl" id="tShd"></table></div>
+        <div class="docfoot">Made with <b>♥</b> for Tambour</div>
+      </article>
+    </div>
+  </section>
+
+  <!-- BUTTONS -->
+  <section class="sec" id="buttons">
+    <div class="label">Buttons Guide 👈</div>
+    <div class="pages">
+      <article class="doc">
+        <h2>Buttons Radius</h2>
+        <p class="desc">מגדיר את רדיוס הפינות של הכפתורים.</p>
+        <hr>
+        <div class="tw"><table class="tbl" id="tBr"></table></div>
+        <h3>Size</h3>
+        <p class="desc">גובה 52px · padding 12 מצד האייקון ו-20 מצד הטקסט (RTL) · gap 8px · טקסט Bold 16. האייקון תמיד בקצה שמאל, אחרי הטקסט.</p>
+        <div class="docfoot">Made with <b>♥</b> for Tambour</div>
+      </article>
+      <article class="doc wide">
+        <h2>Button variants</h2>
+        <p class="desc">המצבים מוצגים בכפייה. באתר הם מופעלים ב-:hover, :active, :focus-visible ו-aria-disabled.</p>
+        <hr>
+        <div class="vgrid" id="vgrid"></div>
+        <h3>Icon button</h3>
+        <div class="vgrid" id="igrid" style="grid-template-columns:90px repeat(5,auto)"></div>
+        <h3>Tabs & Tag</h3>
+        <div class="tabs"><span class="on">מוצרי בנייה</span><span>צבע וציפויים</span><span>בנייה ירוקה</span></div>
+        <p style="margin:18px 0 0"><span class="tag">בנייה ירוקה</span></p>
+        <div class="docfoot">Made with <b>♥</b> for Tambour</div>
+      </article>
+    </div>
+  </section>
+
+  <!-- SPACES -->
+  <section class="sec" id="spaces">
+    <div class="label">Spaces Guide 👈</div>
+    <div class="pages">
+      <article class="doc wide">
+        <h2>Spacing</h2>
+        <p class="desc">הערכים שבשימוש ב-CSS הנוכחי. מעתיקים מהסקאלה, לא ממציאים ערכים חדשים.</p>
+        <hr>
+        <div class="tw"><table class="tbl" id="tSp"></table></div>
+        <h3>Layout</h3>
+        <div class="tw"><table class="tbl" id="tLay"></table></div>
+        <h3>Breakpoints</h3>
+        <div class="tw"><table class="tbl" id="tBp"></table></div>
+        <div class="docfoot">Made with <b>♥</b> for Tambour</div>
+      </article>
+    </div>
+  </section>
+
+  <!-- IMAGERY -->
+  <section class="sec" id="imagery">
+    <div class="label">Imagery Guide 👈</div>
+    <div class="pages">
+      <article class="doc wide">
+        <h2>Photography</h2>
+        <p class="desc">התמונות מראות את העולם של הצבע והחומר: טבע, משטחים, אדריכלות ועבודה אמיתית. התמונה היא ההשראה, והצבע של המותג מגיע מתוכה.</p>
+        <hr>
+        <ul class="rules">
+          <li>צילומי חומר וטבע בקלוז-אפ (עלים, סלע, מים), אדריכלות, והעבודה עצמה: ידיים, כלים ומשטחים.</li>
+          <li>צבעי המשנה נלקחים מהתמונה עצמה (למשל Desert Brown מסלע, Wild Green מעלים).</li>
+          <li>בתמונה עם לוגו: הלוגו בלבן או בשחור (חסר צבע), במרחק מוגן, לא על אזור עמוס.</li>
+          <li>התמונה נכנסת למערכת הרשת: חיתוך בריבועים, או פינה עגולה אחת בסגנון הסמליל.</li>
+          <li class="no">לא מורחים טקסט על אזור עמוס בתמונה, ולא משתמשים בפילטר צבע על תמונה שלמה.</li>
+        </ul>
+        <div class="gal">
+          <figure><div class="ph" style="background-image:url(assets/img/cat-surfaces.jpg)"></div><figcaption>משטחי בנייה</figcaption></figure>
+          <figure><div class="ph" style="background-image:url(assets/img/cat-wet.jpg)"></div><figcaption>עבודה בשטח</figcaption></figure>
+          <figure><div class="ph" style="background-image:url(assets/img/cat-roofs.jpg)"></div><figcaption>גגות</figcaption></figure>
+          <figure><div class="ph" style="background-image:url(assets/img/article-sealing.jpg)"></div><figcaption>איטום</figcaption></figure>
+        </div>
+        <p class="note">התמונות לדוגמה הן ברזולוציה נמוכה (כ-300px). בשימוש אמיתי יש להשתמש בקבצי מקור.</p>
+
+        <h3>Photo treatments</h3>
+        <div class="tr">
+          <figure>
+            <div class="stage"><div class="ph-round" style="background-image:url(assets/img/cat-wet.jpg)"></div></div>
+            <figcaption><b>פינה עגולה אחת</b>רדיוס בגודל מודול, בפינה התחתונה ליד הטקסט (ימין למטה). שאר הפינות חדות.</figcaption>
+          </figure>
+          <figure>
+            <div class="stage"><div class="ph-grid" style="background-image:url(assets/img/cat-roofs.jpg)"></div></div>
+            <figcaption><b>רשת קווי שיער</b>קווים דקים (1px) בצבע בהיר מעל התמונה, במרווח מודול קבוע.</figcaption>
+          </figure>
+          <figure>
+            <div class="stage"><div class="ph1" style="--m:140px;width:140px;background-image:url(assets/img/article-sealing.jpg)"><svg class="mk" viewBox="0 0 120 120" style="bottom:12px;left:12px"><use href="#mark"/></svg></div></div>
+            <figcaption><b>קוביית תמונה</b>חיתוך ריבועי בגודל מודול, עם הסמליל הלבן בפינה.</figcaption>
+          </figure>
+        </div>
+
+        <h3>Color swatch tile</h3>
+        <p class="note">אריחי מניפת הגוונים: שם הגוון באותיות לטיניות גדולות (Nexa Black), קוד הגוון מתחתיו (Nexa Heavy), ופעולות "הוסף" ו"מועדפים" בפינה. קו לבן דק בין האריחים.</p>
+        <div class="stage" style="background:#fff;border:1px solid var(--doc-line)">
+          <div class="fan" id="fan"></div>
+        </div>
+        <div class="docfoot">Made with <b>♥</b> for Tambour</div>
+      </article>
+    </div>
+  </section>
+
+  <!-- GRAPHICS -->
+  <section class="sec" id="graphics">
+    <div class="label">Graphics Guide 👈</div>
+    <div class="pages">
+      <article class="doc wide">
+        <h2>Graphic elements</h2>
+        <p class="desc">אלמנטים מיתוגיים, לא להפצה כקבצים נפרדים. כל האלמנטים הגרפיים בנויים מקוביות (מודול) שנגזרות מהסמליל, על גבי רשת של קווי שיער ורודים.</p>
+        <hr>
+        <h3>The module</h3>
+        <p class="note">הסמליל בנוי מ-3×3 ריבועים על רשת אחת, עם פינה אחת מעוגלת (למטה-ימין). ריבוע בודד הוא המודול, והוא הבסיס לכל קומפוזיציה גרפית.</p>
+        <div class="gridbox">
+          <div class="big"><svg viewBox="0 0 120 120"><use href="#mark"/></svg></div>
+          <div class="c" style="left:var(--m);top:var(--m);width:var(--m);height:var(--m)"></div>
+          <div class="c" style="left:0;top:calc(var(--m)*2);width:var(--m);height:var(--m)"></div>        </div>
+
+        <h3>Cube compositions</h3>
+        <p class="note">קוביות שיורדות באלכסון: העליונה מימין והתחתונה משמאל, בכיוון הקריאה. אפשר קוביית צבע, תמונה, או מלבן גבוה (שני מודולים).</p>
+        <div class="cubes" id="cubes"></div>
+
+        <h3>Applications</h3>
+        <div class="posters" id="posters"></div>
+
+        <h3>Hero with grid</h3>
+        <p class="note">בלוק פתיחה באתר: תמונה עם פינה עגולה, קוביות צבע מימין, וקווי רשת ורודים דקים.</p>
+        <div class="hero">
+          <div class="img" style="background-image:url(assets/img/cat-wet.jpg)"></div>
+          <div class="c1"></div><div class="c2"></div>
+          <div class="txt"><h4>עונת האיטום <em>25</em></h4><a class="btn primary" tabindex="-1" id="heroBtn"></a></div>
+          <div class="g"></div>
+        </div>
+        <div class="docfoot">Made with <b>♥</b> for Tambour</div>
+      </article>
+    </div>
+  </section>
+</div>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+const $=s=>document.querySelector(s);
+const toast=t=>{const e=$('#toast');e.textContent=t;e.classList.add('on');clearTimeout(toast.t);toast.t=setTimeout(()=>e.classList.remove('on'),1400)};
+const copy=h=>{try{navigator.clipboard.writeText(h)}catch(e){}toast('Copied '+h)};
+const tbl=(sel,head,rows)=>{$(sel).innerHTML='<thead><tr>'+head.map(h=>`<th>${h}</th>`).join('')+'</tr></thead><tbody>'+rows.map(r=>'<tr>'+r.map(c=>`<td>${c}</td>`).join('')+'</tr>').join('')+'</tbody>';};
+const ch=(t,c='')=>`<span class="chip ${c}">${t}</span>`;
+
+/* ---------- Icons (drawn from the live site: 32px canvas, stroke 1.35, square caps) ---------- */
+const IC={
+ cart:['0 0 32 32','<path d="M9.01758 16.0273H23.2798"/><path d="M15.4124 23.481H14.6757H13.2023H10.2556L9 14.0498H23.2983L22.0427 23.481H19.0959H17.6225H16.8858"/><path d="M10.375 12.1239L14.4989 8"/><path d="M21.9237 12.1236L17.7998 7.99976"/>'],
+ heart:['0 0 32 32','<path d="M15.9302 23.4255C15.9302 23.4255 23.8641 17.6564 23.8641 13.381C23.8641 8.44899 17.3734 6.89036 15.9302 12.8868C14.4907 6.89397 8 8.4526 8 13.3846C8 17.6564 15.9302 23.4255 15.9302 23.4255Z"/>'],
+ user:['0 0 32 32','<circle cx="15.8581" cy="13.078" r="4.40286"/><path d="M22.967 23.9107C22.1756 22.7791 21.1224 21.8509 19.895 21.2033C18.6676 20.5558 17.3016 20.2076 15.9107 20.1878C14.5198 20.1681 13.1442 20.4772 11.8985 21.0896C10.6528 21.702 9.57302 22.5999 8.74902 23.7085"/>'],
+ industry:['0 0 32 32','<path d="M20.0637 8H11.2078C10.9367 8 10.6842 8.13817 10.538 8.36657L5.2729 16.5933C5.1064 16.8535 5.1056 17.1865 5.27084 17.4475L10.5357 25.762C10.683 25.9946 10.9401 26.1345 11.2155 26.1317L20.0689 26.0439C20.3454 26.0411 20.6007 25.8949 20.7429 25.6578L25.6803 17.4289C25.8314 17.177 25.8314 16.8624 25.6803 16.6106L20.7456 8.3861C20.6019 8.14656 20.343 8 20.0637 8Z"/><circle cx="15.824" cy="17.0199" r="4.69026"/>'],
+ search:['-2 -2 32 32','<path d="M12.5557 17.8654C15.3749 17.8654 17.6603 15.58 17.6603 12.7608C17.6603 9.94164 15.3749 7.65625 12.5557 7.65625C9.73657 7.65625 7.45117 9.94164 7.45117 12.7608C7.45117 15.58 9.73657 17.8654 12.5557 17.8654Z"/><path d="M16.1643 16.3695L19.7011 19.9063"/>'],
+ plus:['0 0 32 32','<path d="M16 8v16M8 16h16"/>'],
+ close:['0 0 32 32','<path d="M9 9l14 14M23 9 9 23"/>'],
+ menu:['0 0 32 32','<path d="M7 11h18M7 16h18M7 21h18"/>'],
+ 'chevron-down':['0 0 32 32','<path d="m9 13 7 7 7-7"/>'],
+ download:['0 0 32 32','<path d="M16 8v13m-6-6 6 6 6-6M8 25h16"/>'],
+ 'arrow-down-left':['0 0 24 24','<path d="M17 7 7 17M7 8v9h9"/>','bold'],
+ 'arrow-up-right':['0 0 24 24','<path d="M7 17 17 7M8 7h9v9"/>','bold'],
+ 'arrow-left':['0 0 24 24','<path d="M10 5 3 12l7 7M4 12h17"/>','bold']
+};
+const svg=(n,cls='')=>{const [vb,inner,b]=IC[n];return `<svg class="i ${b||''} ${cls}" viewBox="${vb}" aria-hidden="true">${inner}</svg>`};
+$('#iconGrid').innerHTML=Object.keys(IC).map(n=>`<div class="ic">${svg(n)}${n}</div>`).join('');
+$('#topbar').innerHTML=
+ `<div class="grp">${svg('cart')}${svg('heart')}${svg('user')}${svg('industry')}<span class="t">פתרונות לתעשייה - בקרוב</span></div>`+
+ `<div class="mid">${svg('search')}חיפוש</div>`+
+ `<div class="tel">צור קשר</div>`;
+$('#anatIcon').innerHTML=svg('heart');
+
+/* ---------- Colors ---------- */
+const G={
+ red:[['10','#fbe5ea'],['20','#f8ccd6'],['30','#f4b2c1'],['70','#e64d70'],['80','#e2335b'],['Main','#db0032'],['Dark','#c2002c'],['Press','#a80027']],
+ black:[['Brand','#000000'],['Main','#333032'],['System','#1f2227'],['Hover','#1f1e1f']],
+ green:[['Main','#1a3b3a'],['Tag','#255f4f']],
+ imagery:[['Desert Brown','#7e482e'],['Land Brown','#ad6e3b'],['Land Yellow','#d58a3d'],['Balloon Yellow','#e9a95b'],['Forest Green','#657937'],['Wild Green','#586e26'],['Deep Blue','#0f253d']],
+ neutral:[['BG','#edeeef'],['Line','#d9d9d9'],['10','#e5e5e5'],['20','#cccccc'],['30','#b2b2b2'],['40','#999999'],['50','#808080'],['60','#666666'],['70','#4d4d4d'],['80','#333333'],['Gray 200','#898f98']],
+ alpha:[['White 30%','#ffffff4d','alpha'],['Black 5%','#0000000d','alpha'],['Black 10%','#0000001a','alpha'],['Black 12%','#0000001f','alpha']],
+ white:[['White','#ffffff']]
+};
+document.querySelectorAll('[data-g]').forEach(el=>{
+ el.innerHTML=G[el.dataset.g].map(([n,h,k])=>`<button class="sw ${k||''}" style="--c:${h}" onclick="copy('${h}')" aria-label="העתק ${n} ${h}"><i style="background:${k?'none':h}"></i><b>${n}</b><code>${h.toUpperCase()}</code></button>`).join('');
+});
+const A=[
+ ['Content',[
+  ['Primary','Black/Main','#333032','text-primary','טקסט וכותרות ראשיים'],
+  ['Secondary','Neutral/60','#666666','text-secondary','טקסט משני, תיאורים, פירורי לחם'],
+  ['Inverted','White','#ffffff','text-inverted','טקסט על רקע כהה או אדום'],
+  ['Disabled','Neutral/40','#999999','text-disabled','תוכן ברכיב מושבת'],
+  ['Brand','Red/Main','#db0032','text-brand','קישורים, הדגשות, מילה מודגשת בכותרת'],
+  ['Brand hover','Red/Dark','#c2002c','text-brand-hover','קישור ב-hover'],
+  ['Green','Green/Main','#1a3b3a','text-green','Kicker ותוכן בנייה ירוקה']]],
+ ['Surface',[
+  ['Page','White','#ffffff','bg-page','רקע דף'],
+  ['Subtle','Neutral/BG','#edeeef','bg-subtle','רקע סקשן משני (למשל "מה בפנים")'],
+  ['Inverted','Black/Main','#333032','bg-inverted','פס עליון, פוטר'],
+  ['Brand','Red/Main','#db0032','bg-brand','כפתור ראשי, בלוק מותג'],
+  ['Brand subtle','Red/10','#fbe5ea','bg-brand-subtle','רקע אייקון, בלוק עדין'],
+  ['Green','Green/Main','#1a3b3a','bg-green','תגית בנייה ירוקה']]],
+ ['Border',[
+  ['Default','Neutral/Line','#d9d9d9','border-default','קווים כלליים'],
+  ['Grid','Red/30','#f4b2c1','border-grid','קווי הרשת הוורודים, מסגרות כרטיסים וסקשנים'],
+  ['Brand','Red/Main','#db0032','border-brand','טאב פעיל, Focus ring'],
+  ['Inverted','Alpha/White 30%','#ffffff4d','border-inverted','קווים על רקע כהה']]],
+ ['Action',[
+  ['Primary','Red/Main','#db0032','action-primary','כפתור ראשי, ברירת מחדל'],
+  ['Primary hover','Red/Dark','#c2002c','action-primary-hover','Hover'],
+  ['Primary active','Red/Press','#a80027','action-primary-active','Active (לחיצה)'],
+  ['Disabled','Neutral/40','#999999','action-disabled','כפתור מושבת'],
+  ['Secondary','Black/Main','#333032','action-secondary','כפתור משני כהה'],
+  ['Secondary hover','Black/Hover','#1f1e1f','action-secondary-hover','Hover לכפתור משני']]]
+];
+$('#alias').innerHTML=A.map(([g,rows])=>`<h3 style="margin-top:26px">${g}</h3><div class="tw"><table class="tbl"><thead><tr><th>Style Name</th><th>Global</th><th>Token</th><th>Use case</th></tr></thead><tbody>`+
+ rows.map(([n,gl,h,t,u])=>`<tr><td style="white-space:nowrap"><span class="dot" style="background:${h}"></span>${n}</td><td>${ch(gl)}</td><td>${ch(t,'t')}</td><td>${u}</td></tr>`).join('')+'</tbody></table></div>').join('');
+
+/* ---------- Logo: tagline fit + stamp ---------- */
+const fit=()=>document.querySelectorAll('[data-fit]').forEach(el=>{el.style.fontSize='100px';el.style.width='max-content';const w=el.getBoundingClientRect().width;el.style.fontSize=(100*(+el.dataset.fit)/w)+'px';el.style.width='auto';el.style.textAlign='right'});
+(document.fonts&&document.fonts.ready?document.fonts.ready:Promise.resolve()).then(fit);
+const rev=s=>[...s].reverse().join('');
+const T=rev('הצבע של ישראל');
+const arc=(id,d,off='50%')=>`<path id="${id}" d="${d}" fill="none"/><text font-family="Simpler" font-weight="700" font-size="25" fill="currentColor" text-anchor="middle" style="unicode-bidi:bidi-override;direction:ltr"><textPath href="#${id}" startOffset="${off}">${T}</textPath></text>`;
+const markC='<svg x="80" y="80" width="80" height="80" viewBox="0 0 120 120" fill="currentColor"><use href="#mark"/></svg>';
+$('#stampFull').innerHTML=arc('sa1','M 38 120 A 82 82 0 0 1 202 120')+arc('sb1','M 16 120 A 104 104 0 0 0 224 120')+markC;
+$('#stampArc').innerHTML=arc('sa2','M 38 120 A 82 82 0 0 1 202 120')+markC;
+
+/* ---------- Typography ---------- */
+const rem=px=>(px/16).toFixed(4).replace(/0+$/,'').replace(/\.$/,'')+'rem';
+tbl('#tFam',['Sample','Global','Value'],[
+ [`<span style="font-size:18px">Simpler אבגד</span>`,ch('font-family-base'),'<span class="mono">Simpler, Heebo, Assistant, Arial</span>'],
+ [`<span style="font:900 16px var(--latin);letter-spacing:.02em">TOUCH OF MINT</span>`,ch('font-family-latin'),'<span class="mono">Nexa (Black / Heavy) · fallback Montserrat</span><br><small style="color:var(--muted)">שמות גוונים וקודים בלטינית, לפי ספר המותג. הפונט לא נמצא בפרויקט.</small>']]);
+const FS=[['font-size-legal',12,'Legal'],['font-size-sm',16,'Body S / Link'],['font-size-body-m',18,'Body M'],['font-size-body-l',22,'Body L / H4'],['font-size-h3',30,'H3'],['font-size-h2s',35,'H2-S'],['font-size-h2',44,'H2'],['font-size-h1',90,'H1']];
+tbl('#tSize',['Sample','Global','Value'],FS.map(([t,px,n])=>[`<span style="font-size:${Math.min(px,44)}px;font-weight:${px>=30?900:400}">${n}</span>`,ch(t),`<span class="v mono">${px}px <small>${rem(px)}</small></span>`]));
+tbl('#tWeight',['Sample','Global','Value'],[[300,'light'],[400,'regular'],[700,'bold'],[900,'black']].map(([w,n])=>[`<span style="font-weight:${w}">${n} אבג Aa</span>`,ch('font-weight-'+n),`<span class="mono">${w}</span>`]));
+tbl('#tLh',['Sample','Token','Value'],[['leading-tight','.96','96%'],['leading-snug','1.1','110%'],['leading-normal','1.2','120%'],['leading-relaxed','1.3','130%']].map(([t,v,p])=>[`<span style="line-height:${v};display:inline-block;max-width:22ch">כל מה שצריך להכיר בתחום שלך, במקום אחד</span>`,ch(t),`<span class="mono">${p}</span>`]));
+tbl('#tLs',['Sample','Token','Value'],[
+ [`<span style="font:900 15px var(--latin);letter-spacing:.02em">TOUCH OF MINT</span>`,ch('tracking-name'),'<span class="mono">20 (0.02em) · Nexa Black</span>'],
+ [`<span style="font:800 15px var(--latin);letter-spacing:.06em">0927T</span>`,ch('tracking-code'),'<span class="mono">60 (0.06em) · Nexa Heavy</span>'],
+ [`<span>טקסט עברי רגיל</span>`,ch('tracking-none'),'<span class="mono">0</span>']]);
+tbl('#tDeco',['Sample','Global','Value'],[
+ [`<u>קישור עם קו תחתון</u>`,ch('underline'),'<span class="mono">underline</span>'],
+ [`<span style="text-transform:uppercase;font:900 15px var(--latin);letter-spacing:.02em">Intimate White OW212P</span>`,ch('uppercase'),'<span class="mono">uppercase · שמות גוונים</span>']]);
+const TY=[
+ ['H1','Black',90,'96%',54,'96%','עונת האיטום',900],
+ ['H2','Black',44,'96%',34,'96%','פתרונות איטום',900],
+ ['H2-S','Black',35,'110%',30,'110%','פתרונות איטום',900],
+ ['H3','Regular',30,'120%',25,'120%','כל מה שצריך להכיר',400],
+ ['H4','Black',22,'28px',20,'24px','כותרת כרטיס',900],
+ ['Body L','Regular',22,'130%',17,'130%','טקסט מוביל לפתיחת עמוד',400],
+ ['Body M','Regular',18,'130%',16,'130%','טקסט גוף רגיל בעמוד',400],
+ ['Body S','Regular',16,'120%',16,'120%','תיאור מוצר, טקסט עזר',400],
+ ['Link','Bold',16,'120%',16,'120%','לכל המוצרים',700],
+ ['Legal','Regular',12,'120%',12,'120%','© כל הזכויות שמורות',400]
+];
+const typeRows=m=>TY.map(r=>{const px=m?r[4]:r[2],lh=m?r[5]:r[3];return [`<b>${r[0]}</b>`,'<span class="mono">Simpler</span>',r[1],`<span class="v mono">${px}px / ${rem(px)}</span>`,`<span class="mono">${lh}</span>`,'<span class="mono">0</span>',`<span style="font-size:${Math.min(px,36)}px;font-weight:${r[7]};line-height:1.1">${r[6]}</span>`]});
+const th=['Style','Font','Weight','Size','Line Height','Letter Spacing','Sample'];
+const latin=[['Color name','<span class="mono">Nexa</span>','Black','<span class="v mono">—</span>','<span class="mono">—</span>','<span class="mono">20</span>','<span style="font:900 18px var(--latin);letter-spacing:.02em">TOUCH OF MINT</span>'],
+ ['Color code','<span class="mono">Nexa</span>','Heavy','<span class="v mono">—</span>','<span class="mono">—</span>','<span class="mono">60</span>','<span style="font:800 16px var(--latin);letter-spacing:.06em">0927T</span>']].map(r=>[`<b>${r[0]}</b>`,...r.slice(1)]);
+tbl('#tTypeD',th,[...typeRows(0),...latin]);
+tbl('#tTypeM',th,typeRows(1));
+
+/* ---------- Borders ---------- */
+tbl('#tRad',['Sample','Size','Token'],[
+ [`<span class="sq" style="border-radius:0"></span>`,'<span class="mono">0</span>',ch('border-radius-none')],
+ [`<span class="sq" style="border-radius:4px"></span>`,'<span class="mono">4px</span>',ch('border-radius-s')],
+ [`<span class="sq" style="border-radius:0 0 18px 0"></span>`,'<span class="mono">1 module (~70-140px)</span>',ch('border-radius-hero')],
+ [`<span class="sq" style="border-radius:50%"></span>`,'<span class="mono">100%</span>',ch('border-radius-full')]]);
+tbl('#tWid',['Sample','Size','Token'],[
+ [`<span class="ln" style="height:1px;background:var(--red-30)"></span>`,'<span class="mono">1px</span>',ch('border-width-hairline')],
+ [`<span class="ln" style="height:3px;background:var(--red)"></span>`,'<span class="mono">3px</span>',ch('border-width-active')],
+ [`<span class="ln" style="height:4px;background:var(--red)"></span>`,'<span class="mono">4px</span>',ch('border-width-accent')]]);
+tbl('#tShd',['Sample','Value','Token'],[
+ [`<span class="shd" style="box-shadow:0 2px 4px #0000000d"></span>`,'<span class="mono">0 2 4 · 5%</span>',ch('shadow-s')],
+ [`<span class="shd" style="box-shadow:0 4px 12px #0000001a"></span>`,'<span class="mono">0 4 12 · 10%</span>',ch('shadow-card')],
+ [`<span class="shd" style="box-shadow:0 15px 40px #0000001f"></span>`,'<span class="mono">0 15 40 · 12%</span>',ch('shadow-big')]]);
+
+/* ---------- Buttons ---------- */
+tbl('#tBr',['Sample','Size','Token'],[
+ [`<span class="sq" style="border-radius:0"></span>`,'<span class="mono">0</span>',ch('border-radius-none')+' <small style="color:var(--muted)">כרטיסים, רשת</small>'],
+ [`<span class="sq" style="border-radius:4px"></span>`,'<span class="mono">4px</span>',ch('button-radius')+' <small style="color:var(--muted)">כל הכפתורים</small>']]);
+const arrow=svg('arrow-down-left');
+const STATES=[['Default',''],['Hover','hover'],['Focus','focus'],['Disabled','dis'],['Active','active']];
+let vg='<span></span><span class="h">Main-Primary</span><span class="h">Secondary</span><span class="h">Tertiary</span>';
+STATES.forEach(([n,s])=>{vg+=`<span class="h">${n}</span><button class="btn primary ${s}" tabindex="-1">${arrow}הזמנת דוגמאות</button><button class="btn sec ${s}" tabindex="-1">${arrow}הרשמה</button><a class="link ${s}" tabindex="-1">${arrow}לכל המוצרים</a>`});
+$('#vgrid').innerHTML=vg;
+$('#heroBtn').innerHTML=arrow+'הסיפור שלנו';
+let ig='<span></span><span class="h">Default</span><span class="h">Hover</span><span class="h">Focus</span><span class="h">Disabled</span><span class="h">Light</span>';
+ig+=`<span class="h">Plus</span>${['','hover','focus','dis'].map(s=>`<span class="ibtn ${s}">${svg('plus')}</span>`).join('')}<span class="ibtn light">${svg('plus')}</span>`;
+ig+=`<span class="h">Heart</span>${['','hover','focus','dis'].map(s=>`<span class="ibtn ${s}">${svg('heart')}</span>`).join('')}<span class="ibtn light">${svg('heart')}</span>`;
+$('#igrid').innerHTML=ig;
+
+/* ---------- Spaces ---------- */
+const S=[[4,'space-1','הפרדה קטנה בין אייקון לטקסט'],[8,'space-2','gap בכפתור'],[12,'space-3','padding אייקון בכפתור'],[16,'space-4','gutter במובייל'],[20,'space-5','padding טקסט בכפתור'],[24,'space-6','gap בין כרטיסים, padding כרטיס מובייל'],[32,'space-8','padding פנימי בקטגוריות'],[40,'space-10','רווח כותרת-תוכן'],[48,'space-12','מינימום ריווח סקשן'],[64,'space-16','ריווח בין בלוקים'],[80,'space-20','gutter מקסימלי'],[96,'space-24','מקסימום ריווח סקשן']];
+tbl('#tSp',['Token','Value','Preview','Use case'],S.map(([v,t,u])=>[ch(t,'t'),`<span class="v mono">${v}px <small>${rem(v)}</small></span>`,`<div class="sp"><i style="width:${v}px"></i></div>`,u]));
+tbl('#tLay',['Token','Value','Use case'],[
+ [ch('layout-max','t'),ch('1400px'),'רוחב מקסימלי של התוכן'],
+ [ch('layout-gutter','t'),ch('clamp(16px, 5vw, 80px)'),'שוליים צדדיים'],
+ [ch('section-y','t'),ch('clamp(48px, 7vw, 96px)'),'ריווח אנכי בין סקשנים'],
+ [ch('module','t'),ch('~ 90-116px'),'גודל קובייה ברשת הגרפית']]);
+tbl('#tBp',['Name','Range','Behavior'],[
+ ['<b>Desktop</b>',ch('1025px+'),'תפריט מלא, 4 עמודות קטגוריות'],
+ ['<b>Tablet</b>',ch('≤ 1024px'),'תפריט המבורגר, 2 עמודות'],
+ ['<b>Mobile</b>',ch('≤ 640px'),'עמודה אחת, כפתור ברוחב מלא']]);
+
+/* ---------- Imagery ---------- */
+const FAN=[['Touch of Mint','0927T','#a5ac9d'],['Intimate White','OW212P','#eee7dc'],['Hush White','OW221P','#ece9df'],['Mobe Pearl','OW222P','#e6dcd2'],['Ash White','OW241P','#e4e3df'],['White Lace','OW211P','#efecdf']];
+$('#fan').innerHTML=FAN.map(([n,c,h])=>`<div class="t" style="background:${h}"><div class="ac">${svg('plus')}${svg('heart')}</div><b>${n}</b><span>${c}</span></div>`).join('');
+
+/* ---------- Graphics ---------- */
+const mk=(s='')=>`<svg class="mkw" viewBox="0 0 120 120" style="${s}"><use href="#mark"/></svg>`;
+const tile=(n,c)=>`<div class="tl"><b>${n}</b><span>${c}</span></div>`;
+const cube=(w,h,inner)=>`<div class="cube" style="width:${w};height:${h}">${inner}</div>`;
+const PH='url(assets/img/article-sealing.jpg)';
+const CUBES=[
+ ['קוביות בצבע אחד',cube('calc(var(--m)*2)','calc(var(--m)*2)',`<div class="up" style="background:#db0032">${mk('left:10px;bottom:10px')}</div><div class="lo" style="background:#db0032;padding:0">${mk('left:10px;top:10px')}</div>`)],
+ ['צבע + תמונה',cube('calc(var(--m)*2)','calc(var(--m)*2)',`<div class="up" style="background-image:${PH}">${mk('left:10px;bottom:10px')}</div><div class="lo tl" style="background:#586e26">${mk('left:10px;top:10px')}${tile('Wild Green','0982P')}</div>`)],
+ ['מלבן גבוה + תמונה',cube('calc(var(--m)*2)','calc(var(--m)*3)',`<div class="up" style="background-image:url(assets/img/cat-surfaces.jpg)">${mk('left:10px;bottom:10px')}</div><div class="lo tall tl" style="background:#7e482e">${tile('Desert Brown','0982P')}</div>`)],
+ ['גרסת קו (בהירה)',cube('calc(var(--m)*2)','calc(var(--m)*3)',`<div class="up" style="background:#586e26">${mk('left:10px;bottom:10px')}</div><div class="lo tall tl out" style="color:#586e26">${tile('Wild Green','0982P')}</div>`)],
+ ['שני צבעים',cube('calc(var(--m)*2)','calc(var(--m)*2)',`<div class="up tl" style="background:#d58a3d">${mk('left:10px;top:10px')}${tile('Land Yellow','0982P')}</div><div class="lo tl" style="background:#e9a95b">${mk('left:10px;top:10px')}${tile('Balloon Yellow','0982P')}</div>`)]
+];
+$('#cubes').innerHTML=CUBES.map(([c,h])=>`<figure>${h}<figcaption>${c}</figcaption></figure>`).join('');
+const POST=[['assets/img/cat-wet.jpg','#0f253d','Deep Blue','#0f253d'],['assets/img/cat-surfaces.jpg','#7e482e','Desert Brown','#7e482e'],['assets/img/article-sealing.jpg','#586e26','Wild Green','#586e26']];
+$('#posters').innerHTML=POST.map(([img,c,n,tc])=>`<div class="poster" style="background-image:linear-gradient(#0000 55%,#0006),url(${img})"><div class="c" style="right:calc(var(--m)*1);top:calc(var(--m)*1);height:var(--m);background:${c}"><svg viewBox="0 0 120 120"><use href="#mark"/></svg></div><div class="c" style="right:calc(var(--m)*2);top:calc(var(--m)*2);height:calc(var(--m)*2);background:#fff;color:${tc}"><b>${n}</b><span>0982P</span></div><svg class="logo" viewBox="0 0 627 120"><use href="#logo"/></svg></div>`).join('');
+</script>
+</body>
+</html>
